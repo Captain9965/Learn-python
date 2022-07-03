@@ -25,14 +25,44 @@ def changeOutervarWithIteratable():
     #this is changed with 
     changewithInner()
     print(s)
+def changewithNonlocal():
+    s = 'Lenny'
+    def changewithInner():
+        nonlocal s
+        s = 'Weda'
+    changewithInner()
+    print(s)
+def changewithfuncMember():
+    changewithfuncMember.s = 'lenny'
+    def changewithInner():
+        changewithfuncMember.s = 'Weda'
+    changewithInner()
+    print(changewithfuncMember.s)
+"""
+A python closure is a python object that remembers values in enclosing scopes even if they are not
+present in memory.
+An inner function only has its scope inside the outer function but can be extended beyond that with closures
+Example:
+"""
 
-
+def OuterFunction(text):
+    text = text
+    def innerFunction():
+        print(text)
+    return innerFunction
 
 if __name__ == '__main__':
     OuterFunction("Lenny")
 #One must however call the outer function first!
     print("-------changing the value of the outer function-------------------")
     changeOutervarWithIteratable()
+    print("-------Changing with nonlocal keyword:----------------------------")
+    changewithNonlocal()
+    print("--------change with function member:------------------------------")
+    changewithfuncMember()
+    print("----------use of closures-----------------------------------------")
+    myFunction = OuterFunction("Lenny")
+    myFunction()
 
 
 
